@@ -15,6 +15,7 @@ export default function Login(props) {
     initialValues: {
       taiKhoan: "",
       matKhau: "",
+      desc: "",
     },
     onSubmit: (values) => {
       const action = loginAction(values);
