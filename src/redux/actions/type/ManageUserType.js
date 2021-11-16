@@ -1,0 +1,3 @@
+export const LOGIN_ACTION = "LOGIN_ACTION";
+export const SET_INFO_USER = "SET_INFO_USER";
+export const SET_BOOK_TICKET_USER = "SET_BOOK_TICKET_USER";
