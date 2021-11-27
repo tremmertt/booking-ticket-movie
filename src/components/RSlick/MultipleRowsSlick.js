@@ -1,0 +1,133 @@
+/* eslint-disable react/jsx-pascal-case */
+import React, { Component, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Slider from "react-slick";
+import {
+  SET_FILM_NOW_PLAYING,
+  SET_FILM_COMMING_SOON,
+} from "../../redux/actions/type/ManageFilmType";
+import Film from "../Film/Film";
+import Film_Flip from "../Film/Film_Flip";
+import styleSlick from "./MultipleRowSlick.module.css";
+import {
+  getListFilmNowPlayingAction,
+  getListFilmCommingSoonAction,
+} from "../../redux/actions/ManageFilmAction";
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={`${className} ${styleSlick["slick-prev"]}`}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    ></div>
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+
+  return (
+    <div
+      className={`${className} ${styleSlick["slick-prev"]}`}
+      style={{ ...style, display: "block", left: "-50px" }}
+      onClick={onClick}
+    ></div>
+  );
+}
+
+const MultipleRowsSlick = (props) => {
+  const dispatch = useDispatch();
+  const [noActive, setNoActive] = useState(0);
+
+  const { nowPlaying, commingSoon } = useSelector(
+    (state) => state.ManageFilmReducer
+  );
+
+  let activeClassDC = noActive === 1 ? "active_Film" : "none_active_Film";
+  let activeClassSC = noActive === 2 ? "active_Film" : "none_active_Film";
+
+  const renderFilms = () => {
+    console.log("noActive = 1;", noActive);
+    let filmFilteredItems = [];
+    switch (noActive) {
+      case 0:
+        filmFilteredItems = props.arrFilm.slice(0, 12);
+        break;
+      case 1:
+        filmFilteredItems = nowPlaying.slice(0, 12);
+        break;
+      case 2:
+        filmFilteredItems = commingSoon.slice(0, 12);
+        break;
+      default:
+        filmFilteredItems = props.arrFilm.slice(0, 12);
+        break;
+    }
+    return filmFilteredItems.map((item, index) => {
+      return (
+        <div className="mt-2" key={index}>
+          <Film_Flip item={item} />
+        </div>
+      );
+    });
+  };
+
+  console.log("activeSC", activeClassDC, nowPlaying.length);
+  console.log("activeSC", activeClassSC, commingSoon.length);
+
+  const settings = {
+    className: "rounded-lg center variable-width",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "80px",
+    slidesToShow: 2,
+    adaptiveHeight: true,
+    speed: 500,
+    rows: 2,
+    slidesPerRow: 2,
+    variableWidth: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
+  return (
+    <div id="cinema-carousel">
+      <button
+        className={`${
+          styleSlick[activeClassDC]
+        } px-8 py-3 font-semibold rounded  ${
+          noActive === 1
+            ? "bg-gray-800 text-white"
+            : "bg-white text-gray-800 border-gray-800 border"
+        } mr-2`}
+        onClick={() => {
+          setNoActive(1);
+          dispatch(getListFilmNowPlayingAction());
+        }}
+      >
+        {" "}
+        NOW PLAYING{" "}
+      </button>
+      <button
+        className={`${
+          styleSlick[activeClassSC]
+        } px-8 py-3 font-semibold rounded  ${
+          noActive === 2
+            ? "bg-gray-800 text-white"
+            : "bg-white text-gray-800 border-gray-800 border"
+        } `}
+        onClick={() => {
+          setNoActive(2);
+          dispatch(getListFilmCommingSoonAction());
+        }}
+      >
+        {" "}
+        COMING SOON{" "}
+      </button>
+      <Slider {...settings}>{renderFilms()}</Slider>
+    </div>
+  );
+};
+
+export default MultipleRowsSlick;
