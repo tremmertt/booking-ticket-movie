@@ -37,7 +37,7 @@ export default function Home(props) {
         </div>
       </section>
       <div
-        className="flex justify-center"
+        className="mr-10 ml-10 md:mr-20 md:ml-20 lg:mr-80 lg:ml-80"
         style={{ minWidth: "1000px !important" }}
       >
         <HomeMenu cineSystem={cineSystem} />

@@ -28,6 +28,7 @@ import UserBooked from "./pages/Admin/User/UserBooked/UserBooked";
 import Users from "./pages/Admin/User/Users";
 
 import "./App.css";
+import PageError from "./pages/PageError/PageError";
 // const CheckoutTemplate = lazy(() =>
 //   import("./templates/CheckoutTemplate/CheckoutTemplate")
 // );
@@ -86,6 +87,7 @@ function App() {
           />
 
           <HomeTemplate path="/" exact Component={Home} />
+          <Route parth="*" component={PageError} />
         </Switch>
       </ScrollToTop>
     </Router>

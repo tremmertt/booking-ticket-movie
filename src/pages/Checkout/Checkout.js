@@ -26,7 +26,6 @@ import moment from "moment";
 import { history } from "../../App";
 import { TOKEN, USER_LOGIN } from "../../util/settings/config";
 import { NavLink } from "react-router-dom";
-import { Radio } from "antd";
 import PayPal from "./PayPal";
 function Checkout(props) {
   const { userLogin } = useSelector((state) => state.ManageUserReducer);
@@ -245,7 +244,7 @@ function Checkout(props) {
           <hr />
           <div className="text-lg p-2 mb-5">
             <h4> PAY METHOD </h4>
-            <Radio> Pay Pal</Radio>
+
             <PayPal id={props.match.params.id} list={listSeatBooking} />
           </div>
           <hr />
@@ -387,12 +386,11 @@ export default function Demo(props) {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              className="text-2xl ml-3 rounded-full bg-pink-300"
+              className="text-2xl ml-3 mb-5 mr-5 rounded-full bg-pink-300"
             >
               {" "}
               {userLogin.taiKhoan.substr(0, 1)}
-            </div>{" "}
-            {userLogin.taiKhoan}{" "}
+            </div>
           </button>
           <button
             onClick={() => {
@@ -496,13 +494,16 @@ function ResultBookTicket(props) {
                   return <span key={index}>{seat.tenGhe}-</span>;
                 })}{" "}
               </p>
-              <button
-                onClick={() => {
-                  dispatch(setQRimage(index));
-                }}
-              >
-                Check out
-              </button>
+              <div className="flex justify-end">
+                <button
+                  className=" bg-gray-400 text-black duration-300 hover:bg-black hover:text-white font-semibold-border font-light py-2 px-6 rounded-md"
+                  onClick={() => {
+                    dispatch(setQRimage(index));
+                  }}
+                >
+                  Check out
+                </button>
+              </div>
             </div>
           </div>
         </div>
