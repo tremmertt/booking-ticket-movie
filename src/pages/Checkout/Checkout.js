@@ -27,7 +27,7 @@ import { history } from "../../App";
 import { TOKEN, USER_LOGIN } from "../../util/settings/config";
 import { NavLink } from "react-router-dom";
 import { Radio } from "antd";
-
+import PayPal from "./PayPal";
 function Checkout(props) {
   const { userLogin } = useSelector((state) => state.ManageUserReducer);
   const { listCinema } = useSelector((state) => state.ManageCineReducer);
@@ -246,6 +246,7 @@ function Checkout(props) {
           <div className="text-lg p-2 mb-5">
             <h4> PAY METHOD </h4>
             <Radio> Pay Pal</Radio>
+            <PayPal id={props.match.params.id} list={listSeatBooking} />
           </div>
           <hr />
 

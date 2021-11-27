@@ -116,6 +116,16 @@ export default function Login(props) {
                 Log In
               </button>
             </div>
+
+            <div className="mt-10">
+              <button
+                className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
+            font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
+            shadow-lg"
+              >
+                Log In With Google
+              </button>
+            </div>
           </div>
           <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
             Don't have an account ?{" "}
